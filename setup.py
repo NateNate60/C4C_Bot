@@ -34,7 +34,7 @@ def main() :
             path = path [1:]
             path = os.path.expanduser('~') + path
         path = os.path.realpath(path)
-        print("WillardPointsBot will be installed in", path)
+        print("Bot will be installed in", path)
         ok = input("Is this correct? (y/n): ")
         if 'y' in ok or ok == '':
             break
