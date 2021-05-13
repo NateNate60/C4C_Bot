@@ -10,12 +10,12 @@ def logon() :
 
 def getUSL(r: praw.Reddit) :
     bannedlist = []
-    for user in r.subreddit("cash4cash").banned() :
+    for user in r.subreddit(config.main).banned() :
         bannedlist.append(user.name)
     return bannedlist
 
 def banc4crep(r : praw.Reddit, list: list) :
     for user in list :
-        if user not in r.subreddit('c4crep').banned() :
+        if user not in r.subreddit(config.alt).banned() :
             r.subreddit('c4crep').banned.add(user)
             print ("Banned", user)
