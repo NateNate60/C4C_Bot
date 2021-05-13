@@ -46,7 +46,7 @@ def main() :
     with open (path + '/config.py', 'w') as f:
         mainsub = input ("Enter the main subreddit name (where bans will be copied from): ")
         altsub = input ("Enter the secondary subreddit name )where bans will be copied to): ")
-        w = "#Main subreddit name\nmain=" + mainsub + "\n\n#Secondary subreddit name\nsecond=" + altsub
+        w = "#Main subreddit name\nmain=" + mainsub + "\n\n#Secondary subreddit name\nalt=" + altsub
         f.write(w)
     with open (path + "/authentication.py", 'w') as f:
         print("You'll now be asked for the credentials of the Reddit account that you want the bot to use.")
