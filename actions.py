@@ -156,7 +156,7 @@ def flairuser (r, user: User) -> None :
         tm = "4d6cfc5a-b4d1-11e9-942c-0e2188f2c5a2"
     elif (user.score < 1000) :
         tx = "Active Trader"
-        tm = "4d6cfc5a-b4d1-11e9-942c-0e2188f2c5a2"
+        tm = "e605574c-9a69-11e8-95b7-0ed1e06ad0d8"
     elif (user.score < 2500) :
         tx = "Experienced Trader"
         tm = "07c72f9a-9a6a-11e8-b6d8-0ee58c2a0216"
