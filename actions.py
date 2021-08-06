@@ -29,7 +29,7 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
     if next(r.subreddit("TownofSalemgame").flair(redditor=user))['flair_text'] is None :
         u = User(user.name.lower(), 0)
         db.add(u)
-        praw.models.reddit.subreddit.SubredditFlair(r.subreddit("cash4cash")).set(user.name, "0 - New Trader")
+        praw.models.reddit.subreddit.SubredditFlair(r.subreddit("cash4cash")).set(user.name, "0 trust pts. | New Trader")
 
 def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, db: Database, recurse: bool = True) -> None :
     """
@@ -157,10 +157,10 @@ def flairuser (r, user: User) -> None :
     elif (user.score < 1000) :
         tx = "Active Trader"
         tm = "e605574c-9a69-11e8-95b7-0ed1e06ad0d8"
-    elif (user.score < 2500) :
+    elif (user.score < 2000) :
         tx = "Experienced Trader"
         tm = "07c72f9a-9a6a-11e8-b6d8-0ee58c2a0216"
-    elif (user.score < 5000) :
+    elif (user.score < 4000) :
         tx = "Veteran Trader"
         tm = "2791817c-9a6a-11e8-9aea-0ed4f48adeec"
     else :
