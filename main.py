@@ -8,13 +8,11 @@ def main() :
     r = actions.logon()
     while (True) :
         for message in r.inbox.unread() :
-            if (message.author.name != "NateNate60" and message.author.name != "Shut_Up_Exe_Bot") : continue
-            message.mark_read()
             b = message.body.lower()
             if ('u/c4c_bot' in b) :
                 partner = actions.parseparter(b)
                 message.reply("PENDING CONFIRMATION\n\nWaiting for u/" +  partner + " to confirm the trade.\n\n**Note:** The flairing system has changed. You must reply to **this comment** to confirm! **If you reply to the parent comment your confirmation will not be detected." + config.signature)
-                continue
+                message.mark_read()
             if ("confirm" in b and "not" not in b) :
                 try :
                     parent = message.parent().parent()
@@ -26,8 +24,7 @@ def main() :
                         raise ValueError
                 except ValueError :
                     message.reply("Confirmation failed. Please ensurse you are the person mentioned in the parent comment.")
-                continue
-            message.mark_unread()
+                message.mark_read()
 
 
 if __name__ == '__main__' :
