@@ -26,10 +26,10 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
     """
     Give the user a new flair if they do not have one.
     """
-    if next(r.subreddit("TownofSalemgame").flair(redditor=user))['flair_text'] is None :
+    if next(r.subreddit("cash4cash").flair(redditor=user))['flair_text'] is None :
         u = User(user.name.lower(), 0)
         db.add(u)
-        praw.models.reddit.subreddit.SubredditFlair(r.subreddit("cash4cash")).set(user.name, "0 trust pts. | New Trader")
+        praw.models.reddit.subreddit.SubredditFlair(r.subreddit("cash4cash")).set(user.name, "0 trust pts | New Trader")
 
 def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, db: Database, recurse: bool = True) -> None :
     """
@@ -134,7 +134,7 @@ def monitor (monitorlist: list, r: praw.Reddit, db: Database) -> list :
             for message in comment.replies :
                 if (message.author.name == parseparter(comment.body.lower())) :
                     message.reply("Transaction confirmed!" + config.signature)
-                    value = detectval(comment.body.lower())
+                    value = detectval(b)
                     log(r, comment.author.name, message.author.name, value, db)
                 else :
                     raise ValueError
@@ -156,11 +156,11 @@ def flairuser (r, user: User) -> None :
         tm = "4d6cfc5a-b4d1-11e9-942c-0e2188f2c5a2"
     elif (user.score < 1000) :
         tx = "Active Trader"
-        tm = "e605574c-9a69-11e8-95b7-0ed1e06ad0d8"
-    elif (user.score < 2000) :
+        tm = "4d6cfc5a-b4d1-11e9-942c-0e2188f2c5a2"
+    elif (user.score < 2500) :
         tx = "Experienced Trader"
         tm = "07c72f9a-9a6a-11e8-b6d8-0ee58c2a0216"
-    elif (user.score < 4000) :
+    elif (user.score < 5000) :
         tx = "Veteran Trader"
         tm = "2791817c-9a6a-11e8-9aea-0ed4f48adeec"
     else :
@@ -168,5 +168,4 @@ def flairuser (r, user: User) -> None :
         tm = "71d39e14-9a6a-11e8-8494-0ec3502664d4"
     if (user.status == 2 or user.status == 3) :
         tx = "Confirmed " + tx
-    tx = str(user.score) + " trust pts | " + tx
     fl.set(user.username, tx, flair_template_id = tm)
