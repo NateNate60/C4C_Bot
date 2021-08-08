@@ -3,6 +3,7 @@ import config
 from userdb import Database, User
 import time
 import re
+from helpers import journal
 
 def logon() -> praw.Reddit:
     r = praw.Reddit(username=config.username, password=config.password, 
@@ -30,6 +31,7 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
         u = User(user.name.lower(), 0)
         db.add(u)
         praw.models.reddit.subreddit.SubredditFlair(r.subreddit("cash4cash")).set(user.name, "0 trust pts | New Trader")
+        journal("User" + user.name + " was given a new flair")
 
 def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, db: Database, recurse: bool = True) -> None :
     """
@@ -78,6 +80,7 @@ def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, 
     a.score += basescore
     db.add(a)
     flairuser(r, a)
+    journal("User " + a.username + " gained " + str(basescore) + " for a trade with " + b.username)
     if (recurse) :
         log(r, userb, usera, amt, db, False)
         
@@ -91,6 +94,7 @@ def decay (r: praw.Reddit, user: str, db: Database) -> None :
             return
         usero = db.lookup(user)
         usero.score *= .96
+        journal("User " + user + "'s score decayed to " + str(user.score))
         db.add(usero)
 
 def detectval (body: str) -> int :
