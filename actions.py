@@ -134,7 +134,7 @@ def monitor (monitorlist: list, r: praw.Reddit, db: Database) -> list :
             for message in comment.replies :
                 if (message.author.name == parseparter(comment.body.lower())) :
                     message.reply("Transaction confirmed!" + config.signature)
-                    value = detectval(b)
+                    value = detectval(comment.body.lower())
                     log(r, comment.author.name, message.author.name, value, db)
                 else :
                     raise ValueError
