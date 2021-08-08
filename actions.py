@@ -166,6 +166,8 @@ def flairuser (r, user: User) -> None :
     else :
         tx = "Top Trader"
         tm = "71d39e14-9a6a-11e8-8494-0ec3502664d4"
-    if (user.status == 2 or user.status == 3) :
-        tx = "Confirmed " + tx
+    if (user.status == 2) :
+        tx = "Verified " + tx
+    if (user.status == 3) :
+        tx += " | Moderator"
     fl.set(user.username, tx, flair_template_id = tm)
