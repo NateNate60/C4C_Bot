@@ -170,4 +170,6 @@ def flairuser (r, user: User) -> None :
         tx = "Verified " + tx
     if (user.status == 3) :
         tx += " | Moderator"
+        tm = "7bbd1234-bbf7-11e9-b454-0eb268645104"
+    tx = str(user.score) + " trust pts | " + tx
     fl.set(user.username, tx, flair_template_id = tm)
