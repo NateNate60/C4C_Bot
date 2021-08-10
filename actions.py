@@ -46,22 +46,22 @@ def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, 
     basescore = 0
     #complicated base score calculation
     if (b.status == 1) :
-        if (b.score <= 200) :
+        if (b.score <= 100) :
             basescore = 2
-        elif (b.score <= 1000) :
-            basescore = 5
-        elif (b.score <= 2500) :
+        elif (b.score <= 500) :
             basescore = 10
-        elif (b.score <= 5000) :
+        elif (b.score <= 1000) :
             basescore = 15
-        else :
+        elif (b.score <= 2000) :
             basescore = 20
+        else :
+            basescore = 25
     else :
-        if (b.score <= 200) :
+        if (b.score <= 100) :
             basescore = 5
-        elif (b.score <= 1000) :
+        elif (b.score <= 500) :
             basescore = 10
-        elif (b.score <= 2500) :
+        elif (b.score <= 1000) :
             basescore = 20
         else :
             basescore = 40
@@ -73,8 +73,7 @@ def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, 
     for submission in userb.comments.new(limit=6) :
         if (int(time.time()) - submission.created_utc > 864000) :
             break
-        if (submission.subreddit.display_name.lower() not in config.tradingsubs) :
-            posts += 1
+        posts += 1
     if (posts < 5) :
         basescore //= 4
     a.score += basescore
@@ -155,16 +154,16 @@ def flairuser (r, user: User) -> None :
     fl = praw.models.reddit.subreddit.SubredditFlair(praw.models.Subreddit(r, display_name="cash4cash"))
     tm = ""
     tx = ""
-    if (user.score < 200) :
+    if (user.score < 100) :
         tx = "New Trader"
         tm = "4d6cfc5a-b4d1-11e9-942c-0e2188f2c5a2"
-    elif (user.score < 1000) :
+    elif (user.score < 500) :
         tx = "Active Trader"
         tm = "4d6cfc5a-b4d1-11e9-942c-0e2188f2c5a2"
-    elif (user.score < 2500) :
+    elif (user.score < 1000) :
         tx = "Experienced Trader"
         tm = "07c72f9a-9a6a-11e8-b6d8-0ee58c2a0216"
-    elif (user.score < 5000) :
+    elif (user.score < 2000) :
         tx = "Veteran Trader"
         tm = "2791817c-9a6a-11e8-9aea-0ed4f48adeec"
     else :
