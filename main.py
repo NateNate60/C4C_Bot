@@ -23,7 +23,7 @@ def main() :
                         if ("This transaction has been confirmed" in message.parent().body) :
                             continue
                         if (message.author.name.lower() == actions.parseparter(parent.body.lower())) :
-                            parent.edit("This transaction has been confirmed" + config.signature)
+                            message.parent().edit("This transaction has been confirmed" + config.signature)
                             value = actions.detectval(parent.body)
                             points = actions.log(r, parent.author, message.author, value, db)
                             message.reply("Transaction confirmed!\n\nPoints awarded:\n\n- u/" + parent.author.name + ": " + str(points[0]) +  " points\n- u/" + message.author.name + ": " + str(points[1]) + " points" + config.signature)
@@ -36,8 +36,11 @@ def main() :
                 if (post.id in checked) :
                     continue
                 author = db.lookup(post.author.name.lower())
-                message = "#OP's Cash4Cash Trust Score: " + str(author.score) + '\n\n'
-                if (author.score < 200) :
+                score = 0
+                if (author != None) :
+                    score = author.score
+                message = "#OP's Cash4Cash Trust Score: " + str(score) + '\n\n'
+                if (score < 200) :
                     message += "Note: This user's trust score is low. It's highly recommended to use the escrow when trading, since a large portion of scams target or are perpetrated by such users.\n\n"
                 
                 message += "➤ Automated escrow service: Don't like the uncertainty of going first? Want to make sure the other party doesn't take your money and disappear? Our escrow service can help with that. [Click here to start a new escrow transaction with this user.](https://www.reddit.com/message/compose?to=" + post.author.name + "&subject=Escrow&message=--NEW TRANSACTION--%0APartner%3A {{author}}%0AAmount%3A 0.12345 BTC%2FBCH%0A--CONTRACT--%0AWrite whatever you want here. What are the parties agreeing to%3F%0AAbout this service%3A https%3A%2F%2Fwww.reddit.com%2Fr%2FCash4Cash%2Fwiki%2Fedit%2Findex%2Fescrow)  ([about](https://reddit.com/r/Cash4Cash/wiki/index/escrow))\n\n"
