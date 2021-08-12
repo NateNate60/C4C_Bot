@@ -21,19 +21,20 @@ def main() :
                     try :
                         parent = message.parent().parent()
                         if (message.author.name.lower() == actions.parseparter(parent.body.lower())) :
-                            message.reply("Transaction confirmed!" + config.signature)
+                            parent.edit("This transaction has been confirmed" + config.signature)
                             value = actions.detectval(parent.body)
-                            actions.log(r, parent.author, message.author, value, db)
+                            points = actions.log(r, parent.author, message.author, value, db)
+                            message.reply("Transaction confirmed!\n\nPoints awarded:\n\n- u/" + parent.author.name + ": " + str(points[0]) +  " points\n- u/" + message.author.name + ": " + str(points[1]) + " points" + config.signature)
                         else :
                             raise ValueError
                     except ValueError :
                         message.reply("Confirmation failed. Please ensurse you are the person mentioned in the parent comment.")
                     message.mark_read()
             for post in r.subreddit("cash4cash").new(limit=5) :
-                if (post.id in checked) :
+                if (post.id in checked or post.author.name != "NateNate60") :
                     continue
-                author = db.lookup(post.author.name)
-                message = "#OP's Cash4Cash Trust Score: " +   author.score + '\n\n'
+                author = db.lookup(post.author.name.lower())
+                message = "#OP's Cash4Cash Trust Score: " + str(author.score) + '\n\n'
                 if (author.score < 200) :
                     message += "Note: This user's trust score is low. It's highly recommended to use the escrow when trading, since a large portion of scams target or are perpetrated by such users.\n\n"
                 
@@ -41,6 +42,9 @@ def main() :
                 message += "➤ Trade safely! **Scammers will contact you via PM & reddit chat**: they may pretend to be experienced traders with fake rep pages, or pose as the person you're negotiating with. It falls on you to do your own due diligence.\n\n"
                 message += "➤ Please **[read all of our rules](https://www.reddit.com/r/Cash4Cash/wiki/index)**. We require any user to comment on your post first before contacting you. It's one of the easiest ways to check for a scam. If someone won't comment on your post **DO NOT WORK WITH THEM** and report them to moderators.\n\n"
                 message += "➤ For your convenience, upon conclusion of this trade please post a `!closed` comment"
+                post.reply(message).mod.distinguish(sticky="yes")
+                checked.append(post.id)
+            writechecked(checked)
     except exceptions.ServerError :
         time.sleep(5)
         main()
