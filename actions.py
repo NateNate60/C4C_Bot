@@ -80,7 +80,6 @@ def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, 
         basescore //= 4
     a.score += basescore
     db.add(a)
-    db.db.execute("UPDATE users SET txcount = txcount + 1 WHERE username = ?", (a.username))
     flairuser(r, a)
     journal("User " + a.username + " gained " + str(basescore) + " for a trade with " + b.username)
     if (recurse) :
