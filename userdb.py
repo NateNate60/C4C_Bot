@@ -92,9 +92,11 @@ class Database :
         """
 
         with self.db :
-            self.db.execute("DELETE FROM users WHERE username=?;", (user.username,))
             if (user.last == 0) :
                 user.last = int(time.time())
-            self.db.execute("INSERT INTO users VALUES (\"" + user.username.lower() + "\"," + str(user.score) + ",\"" + string(user.realname) + '\",\"' + string(user.address) + '\",\"' + string(user.realid) + '\",' + str(user.status) + ', ' + string(user.last) + ');')
+            if (self.lookup(user.username) == None) :
+                self.db.execute("INSERT INTO users VALUES (\"" + user.username.lower() + "\"," + str(user.score) + ",\"" + string(user.realname) + '\",\"' + string(user.address) + '\",\"' + string(user.realid) + '\",' + str(user.status) + ', ' + string(user.last) + ', 0);')
+            else :
+                self.db.execute("UPDATE users SET score=" + str(user.score) + ",realname=\"" + string(user.realname) + '\",address=\"' + string(user.address) + '\",realid=\"' + string(user.realid) + '\",status=' + str(user.status) + ',last=' + string(user.last) + ', txcount=txcount+1 WHERE username=?;', (user.username.lower(),))
             self.db.commit()
     
