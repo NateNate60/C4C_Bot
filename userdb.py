@@ -49,7 +49,8 @@ class Database :
                             "address TEXT," +
                             "realid TEXT," +
                             "status INTEGER NOT NULL," +
-                            "last INTEGER NOT NULL);") #last modified time, in UNIX
+                            "last INTEGER NOT NULL," +
+                            "txcount INTEGER);") #last modified time, in UNIX
                             #Statuses:
                             # 1: unverified
                             # 2: id verified
