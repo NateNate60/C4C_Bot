@@ -33,9 +33,11 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
         praw.models.reddit.subreddit.SubredditFlair(r.subreddit("cash4cash")).set(user.name, "0 trust pts | New Trader")
         journal("User" + user.name + " was given a new flair")
 
-def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, db: Database, recurse: bool = True) -> None :
+def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, db: Database, recurse: bool = True) -> list :
     """
     Log a new transaction between two users
+
+    Returns list of ints: [score gained by usera, score gained by userb]
     """
     a = db.lookup(usera.name.lower())
     b = db.lookup(userb.name.lower())
@@ -81,7 +83,8 @@ def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, 
     flairuser(r, a)
     journal("User " + a.username + " gained " + str(basescore) + " for a trade with " + b.username)
     if (recurse) :
-        log(r, userb, usera, amt, db, False)
+        return log(r, userb, usera, amt, db, False).insert(0, basescore)
+    return [basescore]
         
     
 def decay (r: praw.Reddit, user: str, db: Database) -> None :
