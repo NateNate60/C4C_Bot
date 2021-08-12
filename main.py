@@ -20,6 +20,8 @@ def main() :
                 if ("confirm" in b and "not" not in b) :
                     try :
                         parent = message.parent().parent()
+                        if ("This transaction has been confirmed" in message.parent().body) :
+                            continue
                         if (message.author.name.lower() == actions.parseparter(parent.body.lower())) :
                             parent.edit("This transaction has been confirmed" + config.signature)
                             value = actions.detectval(parent.body)
