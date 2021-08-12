@@ -33,7 +33,7 @@ def main() :
                         message.reply("Confirmation failed. Please ensurse you are the person mentioned in the parent comment.")
                     message.mark_read()
             for post in r.subreddit("cash4cash").new(limit=5) :
-                if (post.id in checked or post.author.name != "NateNate60") :
+                if (post.id in checked) :
                     continue
                 author = db.lookup(post.author.name.lower())
                 message = "#OP's Cash4Cash Trust Score: " + str(author.score) + '\n\n'
