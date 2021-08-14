@@ -26,7 +26,7 @@ def main() :
                             message.parent().edit("This transaction has been confirmed" + config.signature)
                             value = actions.detectval(parent.body)
                             points = actions.log(r, parent.author, message.author, value, db)
-                            message.reply("Transaction confirmed!\n\nPoints awarded:\n\n- u/" + parent.author.name + ": " + str(points[0]) +  " points\n- u/" + message.author.name + ": " + str(points[1]) + " points" + config.signature)
+                            message.reply("Transaction confirmed!") #\n\nPoints awarded:\n\n- u/" + parent.author.name + ": " + str(points[0]) +  " points\n- u/" + message.author.name + ": " + str(points[1]) + " points" + config.signature)
                         else :
                             raise ValueError
                     except ValueError :
