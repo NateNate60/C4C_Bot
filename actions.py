@@ -104,7 +104,7 @@ def detectval (body: str) -> int :
     Detect the value of a transaction given the body as a str
     """
     body = body.lower().split()
-    regex = re.compile("[^a-zA-Z][$€£]?\d+[.]?\d*€?[^a-zA-Z]") #regex matches decimal numbers
+    regex = re.compile("[^a-zA-Z][$€£]?\d+[.]?\d*€?[^a-zA-Z%]") #regex matches decimal numbers
     for i in range(0, len(body)) :
         word = body[i]
         if bool(regex.search(word)) :
