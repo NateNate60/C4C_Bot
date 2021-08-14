@@ -128,7 +128,10 @@ def parseparter (body: str) -> str :
     """
     Detect the trade partner given the body of the trade confirmation comment
     """
-    return body.split('u/')[2].split()[0]
+    try :
+        return body.split('u/')[2].split()[0]
+    except IndexError :
+        return ""
 
 def monitor (monitorlist: list, r: praw.Reddit, db: Database) -> list :
     """
