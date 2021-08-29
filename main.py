@@ -22,7 +22,7 @@ def main() :
                     try :
                         parent = message.parent().parent()
                         if ("This transaction has been confirmed" in message.parent().body) :
-                            continue
+                            raise TypeError
                         if (message.author.name.lower() == actions.parseparter(parent.body.lower())) :
                             message.parent().edit("This transaction has been confirmed" + config.signature)
                             value = actions.detectval(parent.body)
@@ -31,7 +31,9 @@ def main() :
                         else :
                             raise ValueError
                     except ValueError :
-                        message.reply("Confirmation failed. Please ensurse you are the person mentioned in the parent comment.")
+                        message.reply("Confirmation failed. Please ensurse you are the person mentioned in the parent comment." + config.signature)
+                    except TypeError :
+                        message.reply("Confirmation failed. This transaction has already been confirmed." + config.signature)
                     message.mark_read()
             for post in r.subreddit("cash4cash").new(limit=5) :
                 if (post.id in checked) :
