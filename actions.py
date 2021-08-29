@@ -83,7 +83,10 @@ def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, 
     flairuser(r, a)
     journal("User " + a.username + " gained " + str(basescore) + " for a trade with " + b.username)
     if (recurse) :
-        return log(r, userb, usera, amt, db, False).insert(0, basescore)
+        d = log(r, userb, usera, amt, db, False)
+        r = [basescore]
+        r.append(d[0])
+        return r
     return [basescore]
         
     
