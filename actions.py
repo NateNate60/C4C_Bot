@@ -132,7 +132,11 @@ def parseparter (body: str) -> str :
     Detect the trade partner given the body of the trade confirmation comment
     """
     try :
-        return body.split('u/')[2].split()[0]
+        p = body.split('u/')[2].split()[0]
+        if (p.lower() == "c4c_bot") :
+            return body.split('u/')[1].split()[0]
+        else :
+            return p
     except IndexError :
         return ""
 
