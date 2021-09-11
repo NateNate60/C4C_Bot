@@ -31,6 +31,16 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
         u = User(user.name.lower(), 0)
         db.add(u)
         praw.models.reddit.subreddit.SubredditFlair(r.subreddit("cash4cash")).set(user.name, "0 trust pts | New Trader")
+        user.message("Welcome to Cash4Cash!", "Hello! Welcome to r/Cash4Cash! You have been given this message because it appears you do not have a flair yet." +
+                                              "\n\nr/Cash4Cash is a place for the trading of cash and cash-like services. Be sure to check out our [beginner's guide](http://redd.it/pe8b4j)" +
+                                              " for information on how to post, avoid scams, get rep and flairs, and use our automated escrow service." +
+                                              "\n\n BEWARE OF SCAMMERS! They lurk on this sub, looking to steal your money. Never trade with someone who won't comment on your post first. " +
+                                              "We always ban scammers, so they won't be able to comment if they are banned, but they can still message you! Also check if they are" +
+                                              " listed on the [Universal Scammer List](https://universalscammerlist.com)!\n\n" +
+                                              "Are you dealing in cryptocurrencies? Our automated escrow can safely hold funds to ensure neither party runs away with the money." +
+                                              " This prevents the most common types of scams. Our escrow supports BTC, BCH, LTC, and ETH." +
+                                              "\n\n If you have any comments, suggestions, or complains, please feel free to contact the moderators!",
+                                              from_subreddit = "cash4cash")
         journal("User" + user.name + " was given a new flair")
 
 def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, db: Database, recurse: bool = True) -> list :
