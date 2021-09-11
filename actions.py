@@ -37,7 +37,7 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
                                               "\n\n BEWARE OF SCAMMERS! They lurk on this sub, looking to steal your money. Never trade with someone who won't comment on your post first. " +
                                               "We always ban scammers, so they won't be able to comment if they are banned, but they can still message you! Also check if they are" +
                                               " listed on the [Universal Scammer List](https://universalscammerlist.com)!\n\n" +
-                                              "Are you dealing in cryptocurrencies? Our automated escrow can safely hold funds to ensure neither party runs away with the money." +
+                                              "Are you dealing in cryptocurrencies? Our [automated escrow](https://www.reddit.com/r/Cash4Cash/wiki/index/escrow) can safely hold funds to ensure neither party runs away with the money." +
                                               " This prevents the most common types of scams. Our escrow supports BTC, BCH, LTC, and ETH." +
                                               "\n\n If you have any comments, suggestions, or complains, please feel free to contact the moderators!",
                                               from_subreddit = "cash4cash")
