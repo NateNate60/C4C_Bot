@@ -36,6 +36,7 @@ def main() :
                         message.reply("Confirmation failed. This transaction has already been confirmed." + config.signature)
                     message.mark_read()
             for post in r.subreddit("cash4cash").new(limit=5) :
+                actions.handleflair(r, post.author, db)
                 if (post.id in checked) :
                     continue
                 author = db.lookup(post.author.name.lower())
@@ -52,6 +53,8 @@ def main() :
                 message += "➤ For your convenience, upon conclusion of this trade please post a `!closed` comment"
                 post.reply(message).mod.distinguish(sticky="yes")
                 checked.append(post.id)
+            for comment in r.subreddit("cash4cash").new(limit=10) :
+                actions.handleflair(r, comment.author, db)
             writechecked(checked)
     except exceptions.ServerError :
         time.sleep(5)
