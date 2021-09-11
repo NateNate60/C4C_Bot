@@ -36,9 +36,9 @@ def main() :
                         message.reply("Confirmation failed. This transaction has already been confirmed." + config.signature)
                     message.mark_read()
             for post in r.subreddit("cash4cash").new(limit=5) :
-                actions.handleflair(r, post.author, db)
                 if (post.id in checked) :
                     continue
+                actions.handleflair(r, post.author, db)
                 author = db.lookup(post.author.name.lower())
                 score = 0
                 if (author != None) :
@@ -54,7 +54,10 @@ def main() :
                 post.reply(message).mod.distinguish(sticky="yes")
                 checked.append(post.id)
             for comment in r.subreddit("cash4cash").new(limit=10) :
+                if (comment.id in checked) :
+                    continue
                 actions.handleflair(r, comment.author, db)
+                checked.append(comment.id)
             writechecked(checked)
     except exceptions.ServerError :
         time.sleep(5)
