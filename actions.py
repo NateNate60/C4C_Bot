@@ -40,7 +40,7 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
                                               "Are you dealing in cryptocurrencies? Our [automated escrow](https://www.reddit.com/r/Cash4Cash/wiki/index/escrow) can safely hold funds to ensure neither party runs away with the money." +
                                               " This prevents the most common types of scams. Our escrow supports BTC, BCH, LTC, and ETH." +
                                               "\n\n If you have any comments, suggestions, or complains, please feel free to contact the moderators!",
-                                              from_subreddit = "cash4cash")
+                                              )
         journal("User" + user.name + " was given a new flair")
 
 def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, db: Database, recurse: bool = True) -> list :
