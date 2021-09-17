@@ -146,6 +146,8 @@ def parseparter (body: str) -> str :
         if (p.lower() == "c4c_bot") :
             return body.split('u/')[1].split()[0]
         else :
+            if (p[-1] in ['.', ':', '-']) :
+                return p[:-1]
             return p
     except IndexError :
         return ""
