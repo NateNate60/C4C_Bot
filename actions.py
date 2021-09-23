@@ -59,11 +59,11 @@ def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, 
     #complicated base score calculation
     if (b.status == 1) :
         if (b.score <= 100) :
-            basescore = 2
+            basescore = 5
         elif (b.score <= 500) :
-            basescore = 10
+            basescore = 15
         elif (b.score <= 1000) :
-            basescore = 20
+            basescore = 25
         elif (b.score <= 2000) :
             basescore = 30
         else :
