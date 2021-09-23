@@ -88,6 +88,8 @@ def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, 
         posts += 1
     if (posts < 5) :
         basescore //= 4
+    if (basescore == 0) :
+        basescore = 1
     a.score += basescore
     db.add(a)
     flairuser(r, a)
