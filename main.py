@@ -53,7 +53,7 @@ def main() :
                 message += "➤ For your convenience, upon conclusion of this trade please post a `!closed` comment"
                 post.reply(message).mod.distinguish(sticky="yes")
                 checked.append(post.id)
-            for comment in r.subreddit("cash4cash").new(limit=10) :
+            for comment in r.subreddit("cash4cash").comments(limit=10) :
                 if (comment.id in checked) :
                     continue
                 actions.handleflair(r, comment.author, db)
