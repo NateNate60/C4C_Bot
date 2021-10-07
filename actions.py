@@ -32,15 +32,14 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
         db.add(u)
         praw.models.reddit.subreddit.SubredditFlair(r.subreddit("cash4cash")).set(user.name, "0 trust pts | New Trader")
         user.message("Welcome to Cash4Cash!", "Hello! Welcome to r/Cash4Cash! You have been given this message because it appears you do not have a flair yet." +
-                                              "\n\nr/Cash4Cash is a place for the trading of cash and cash-like services. Be sure to check out our [beginner's guide](http://redd.it/pe8b4j)" +
-                                              " for information on how to post, avoid scams, get rep and flairs, and use our automated escrow service." +
-                                              "\n\n BEWARE OF SCAMMERS! They lurk on this sub, looking to steal your money. Never trade with someone who won't comment on your post first. " +
-                                              "We always ban scammers, so they won't be able to comment if they are banned, but they can still message you! Also check if they are" +
-                                              " listed on the [Universal Scammer List](https://universalscammerlist.com)!\n\n" +
-                                              "Are you dealing in cryptocurrencies? Our [automated escrow](https://www.reddit.com/r/Cash4Cash/wiki/index/escrow) can safely hold funds to ensure neither party runs away with the money." +
-                                              " This prevents the most common types of scams. Our escrow supports BTC, BCH, LTC, ETH, and DOGE." +
-                                              "\n\n If you have any comments, suggestions, or complains, please feel free to contact the moderators!",
-                                              )
+                     " Please read this message in its entirety!\n\n" +
+                     "- There's no need for either party to go first if you don't want to. Our [escrow bot](https://reddit.com/r/Cash4Cash/wiki/index/escrow)" +
+                     " can securely hold cryptocurrency so neither party runs away with the money, preventing the most common type of scam. The bot works with BTC, BCH, LTC, ETH, and DOGE." +
+                     "\n- Read our [Beginner's Guide](http://redd.it/pe8b4j) for tips on how to format posts, get rep, and avoid scams!" +
+                     "\n- Insist everyone you deal with comment somewhere on r/Cash4Cash to prove they aren't banned. Be sure to check the [Universal Scammer List](https://universalscammerlist.com), " +
+                     " which lists out every known scammer on Reddit. WE BAN SCAMMERS. If you have been scammed, message the moderators immediately with evidence." +
+                     "\n\nIf you have any questions, feel free to contact the moderators!" + config.signature
+                     )
         journal("User" + user.name + " was given a new flair")
 
 def log (r, usera: praw.models.Redditor, userb: praw.models.Redditor, amt: int, db: Database, recurse: bool = True) -> list :
