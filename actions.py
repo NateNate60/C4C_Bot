@@ -27,6 +27,8 @@ def handleflair (r: praw.Reddit, user: praw.models.Redditor, db: Database) -> No
     """
     Give the user a new flair if they do not have one.
     """
+    if (user.name == "AutoModerator") :
+        return
     if next(r.subreddit("cash4cash").flair(redditor=user))['flair_text'] is None :
         u = User(user.name.lower(), 0)
         db.add(u)
